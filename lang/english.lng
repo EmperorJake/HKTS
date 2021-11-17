@@ -1,0 +1,65 @@
+##grflangid 0x01
+
+
+STR_GRF_NAME :Hong Kong Transport Set - Alpha 0.3
+STR_GRF_DESCRIPTION :Contains various vehicles from Hong Kong and China. Drawn by Emperor Jake, Voyager One, Purno and Simozzz, coded by Emperor Jake GPLv2/3
+
+STR_PARAM_NAME_BASECOSTMODBUY	:Purchase costs
+STR_PARAM_DESC_BASECOSTMODBUY	:Adjust vehicle purchase costs
+
+STR_PARAM_NAME_BASECOSTMODRUN	:Running costs
+STR_PARAM_DESC_BASECOSTMODRUN	:Adjust vehicle running costs
+
+STR_PARAM_VLOW		:Very Low
+STR_PARAM_LOW		:Low
+STR_PARAM_NORMAL	:Normal
+STR_PARAM_HIGH		:High
+STR_PARAM_VHIGH		:Very High
+
+STR_NAME_KCR_AUSTERITY		:KCR 21-32 [WD Austerity 2-8-0]
+
+
+STR_NAME_KCR_G12	:KCR 51-55 [EMD G12]
+STR_NAME_KCR_G16	:KCR 56-59 [EMD G16]
+STR_NAME_KCR_G26	:KCR 60-62 [EMD G26CU]
+STR_NAME_KCR_ER20	:KCR/MTR 8001-8005 [Siemens ER20]
+
+STR_NAME_CR_X2000			:Guangshen Railway "Xinshisu" [SJ X2000]
+STR_NAME_CR_CRH3			:China Railways CRH3 [Siemens Velaro]
+STR_NAME_CR_CRH380			:China Railways/MTR CRH380A
+
+STR_NAME_KCR_SP1900			:KCR/MTR SP1900
+
+STR_NAME_MU_WAGON			:[HKTS] Multiple Unit Wagon
+
+STR_NAME_KCR_10STOCK		:KCR 1910 Stock
+STR_NAME_KCR_54STOCK		:KCR 1954 Stock
+STR_NAME_KCR_74STOCK		:KCR 1974 Stock [Kinki Sharyo]
+
+STR_NAME_KCR_KTT			:KCR/MTR KTT [ABB Lok2000]
+STR_NAME_KCR_KTT_COACH		:KCR/MTR KTT Coach
+
+
+STR_NAME_BOX_VAN			:[HKTS] Box Van
+
+
+
+STR_NAME_TRAM_6GEN			:Hong Kong Tramway 6th gen.
+
+STR_NAME_LRV_MK1			:Light Rail Vehicle Phase I [Comeng]
+
+STR_REFIT_YEARDEP	: Year-Dependent (automatic)
+
+
+STR_REFIT_LIVERY_GREEN	: Green Livery
+STR_REFIT_LIVERY_GREY	: Grey Livery
+STR_REFIT_LIVERY_RED	: Red/Blue Livery
+STR_REFIT_LIVERY_BLUE	: Blue Livery
+
+STR_REFIT_LIVERY_KCR	: KCR Livery
+STR_REFIT_LIVERY_CR		: China Railways Livery
+STR_REFIT_LIVERY_MTR	: MTR Livery
+
+STR_REFIT_LIVERY_CRH_MTR		: MTR "Vibrant Express" Livery
+STR_REFIT_LIVERY_CRH380AL		: China Railways CRH380A Length test
+STR_REFIT_LIVERY_CRH380A		: China Railways CRH380A

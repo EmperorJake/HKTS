@@ -1,0 +1,1608 @@
+grf {
+ grfid: "\4A\44\AE\81";
+ name: string(STR_GRF_NAME);
+ desc: string(STR_GRF_DESCRIPTION);
+ version: 7;
+ min_compatible_version: 1;
+ 
+ //params, thanks tin
+		//basecosts
+		param 0 {
+				param_basecostbuy {
+						type: int;
+						name: string(STR_PARAM_NAME_BASECOSTMODBUY);
+						desc: string(STR_PARAM_DESC_BASECOSTMODBUY);
+						min_value: 0;
+						max_value: 2;
+						def_value: 1;
+						names: {
+												0: string(STR_PARAM_LOW);
+												1: string(STR_PARAM_NORMAL);
+												2: string(STR_PARAM_HIGH);
+						};
+				}
+		}
+		//runningcosts
+		param 1 {
+				param_basecostrun {
+						type: int;
+						name: string(STR_PARAM_NAME_BASECOSTMODRUN);
+						desc: string(STR_PARAM_DESC_BASECOSTMODRUN);
+						min_value: 0;
+						max_value: 4;
+						def_value: 2;
+						names: {
+												0: string(STR_PARAM_VLOW);
+												1: string(STR_PARAM_LOW);
+												2: string(STR_PARAM_NORMAL);
+												3: string(STR_PARAM_HIGH);
+												4: string(STR_PARAM_VHIGH);
+						};
+				}
+		}
+}
+
+railtypetable {
+	RAIL, ELRL
+	}
+
+cargotable {
+	PASS, MAIL
+	}
+	
+
+//base costs
+basecost {
+		 PR_BUILD_VEHICLE : param_basecostbuy -1;
+		 PR_BUILD_VEHICLE_WAGON: param_basecostbuy +3;
+		 PR_RUNNING: param_basecostrun +1; //3
+}
+
+//train look nice thing
+traininfo_y_offset = 2;
+train_width_32_px = 1;
+ 
+//2cc templates
+
+template template_2cc_std(x, y) {
+    //[left_x, upper_y, width, height, offset_x, offset_y]
+    [x    , y,  8, 24,  -3, -12]
+    [x+9  , y, 22, 20, -14, -12]
+    [x+32 , y, 32, 16, -16, -12]
+    [x+65 , y, 22, 20,  -6, -12]
+    [x+88 , y,  8, 24,  -3, -12]
+    [x+97 , y, 22, 20, -14, -12]
+    [x+120, y, 32, 16, -16, -12]
+    [x+153, y, 22, 20,  -6, -12]
+}
+
+template template_2cc_flip(x, y) {
+    //[left_x, upper_y, width, height, offset_x, offset_y]
+	[x+88 , y,  8, 24,  -3, -12]
+    [x+97 , y, 22, 20, -14, -12]
+    [x+120, y, 32, 16, -16, -12]
+    [x+153, y, 22, 20,  -6, -12]
+    [x    , y,  8, 24,  -3, -12]
+    [x+9  , y, 22, 20, -14, -12]
+    [x+32 , y, 32, 16, -16, -12]
+    [x+65 , y, 22, 20,  -6, -12]
+}
+
+template template_2cc_bus(x, y) {
+    //[left_x, upper_y, width, height, offset_x, offset_y]
+    [x    , y,  8, 24,  -3, -12]
+    [x+9  , y, 22, 20, -14,  -9]
+    [x+32 , y, 32, 16, -16, -10]
+    [x+65 , y, 22, 20,  -6,  -9]
+    [x+88 , y,  8, 24,  -3, -12]
+    [x+97 , y, 22, 20, -14, -10]
+    [x+120, y, 32, 16, -16, -10]
+    [x+153, y, 22, 20,  -6, -10]
+}
+
+//Purchase templates
+//Engines
+template template_purchase(x, y) {
+    //[left_x, upper_y, width, height, offset_x, offset_y]
+    [x, y,  87, 12, -25, -8]
+}
+//Dual headed
+template template_purchase_dualheaded(x, y) {
+    //[left_x, upper_y, width, height, offset_x, offset_y]
+	[1  ,  1,  1,  1,   0,   0, "gfx/trains/empty.png"]
+    [1  ,  1,  1,  1,   0,   0, "gfx/trains/empty.png"]
+    [1 	,  1,  1,  1,   0,   0, "gfx/trains/empty.png"]
+    [1 	,  1,  1,  1,   0,   0, "gfx/trains/empty.png"]
+    [1 	,  1,  1,  1,   0,   0, "gfx/trains/empty.png"]
+    [1 	,  1,  1,  1,   0,   0, "gfx/trains/empty.png"]
+    [x	,  y,  87, 12, -11, -8]
+    [1	,  1,  1,  1,   0,   0, "gfx/trains/empty.png"]
+}
+
+//RV
+template template_purchase_bus(x, y) {
+    //[left_x, upper_y, width, height, offset_x, offset_y]
+    [x, y,  87, 14, -25, -8]
+}
+
+
+/////////////////
+//Austerity
+
+spriteset(spriteset_kcr_austerity_forwards_a, "gfx/trains/austerity.png") {
+	template_2cc_std(1, 1)
+}
+
+spriteset(spriteset_kcr_austerity_forwards_b, "gfx/trains/austerity.png") {
+	template_2cc_std(1, 32)
+}
+
+spriteset(spriteset_kcr_austerity_forwards_tender, "gfx/trains/austerity.png") {
+	template_2cc_std(1, 64)
+}
+
+spriteset(spriteset_kcr_austerity_purchase, "gfx/trains/austerity.png") {
+	template_purchase(1, 96)
+}
+
+
+
+switch(FEAT_TRAINS, SELF, switch_kcr_austerity_animation, motion_counter % 2){
+	0: spriteset_kcr_austerity_forwards_a;
+	spriteset_kcr_austerity_forwards_b;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_austerity_articulated, extra_callback_info1) {
+		1: return kcr_austerity_tender;
+		return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
+	}
+
+
+//austerity item
+
+item (FEAT_TRAINS, kcr_austerity, 16) {
+	property {
+		sprite_id: SPRITE_ID_NEW_TRAIN;
+		track_type: RAIL;
+		name: string(STR_NAME_KCR_AUSTERITY);
+		climates_available: ALL_CLIMATES;
+		introduction_date: date(1946,1,1);
+		speed: 80 km/h;
+		air_drag_coefficient: 0.1;
+		tractive_effort_coefficient:    0.24;
+		power: 1175 hp;
+		dual_headed: 0;
+		engine_class: ENGINE_CLASS_STEAM;
+		cargo_capacity: 0; 
+		cargo_allow_refit: [PASS];
+		weight: 70;
+		reliability_decay: 20;
+		model_life: 50;
+		vehicle_life: 50;
+		cost_factor: 32;
+		running_cost_factor: 29;
+		running_cost_base: RUNNING_COST_STEAM;
+		length: 7;
+	}
+		graphics { // graphics for engine
+//		additional_text:	
+		cargo_capacity: return 0;
+		default: switch_kcr_austerity_animation;
+		purchase: spriteset_kcr_austerity_purchase;
+		articulated_part: switch_kcr_austerity_articulated;
+	}
+}
+
+item (FEAT_TRAINS, kcr_austerity_tender, 17) {
+	property {
+		sprite_id: SPRITE_ID_NEW_TRAIN;
+		track_type: RAIL;
+		name: string(STR_NAME_KCR_AUSTERITY);
+		climates_available: NO_CLIMATE;
+		introduction_date: date(1,1,1);
+		speed: 80 km/h;
+		air_drag_coefficient: 0.1;
+		tractive_effort_coefficient:    0.24;
+		power: 0;
+		dual_headed: 0;
+		engine_class: ENGINE_CLASS_STEAM;
+		cargo_capacity: 0; 
+		weight: 55;
+		reliability_decay: 20;
+		model_life: 50;
+		vehicle_life: 50;
+		cost_factor: 32;
+		running_cost_factor: 29;
+		running_cost_base: RUNNING_COST_STEAM;
+		length: 4;
+	}
+		graphics { // graphics for engine
+//		additional_text:	
+		default: spriteset_kcr_austerity_forwards_tender;
+	}
+}
+
+
+
+ 
+//////////////////
+//EMD G12
+
+//normal
+spriteset(spriteset_kcr_g12_green_forwards, "gfx/trains/g12-green.png") {
+	template_2cc_std(1, 1)
+}
+
+spriteset(spriteset_kcr_g12_green_backwards, "gfx/trains/g12-green.png") {
+	template_2cc_std(1, 32)
+}
+
+spriteset(spriteset_kcr_g12_grey_forwards, "gfx/trains/g12-grey.png") {
+	template_2cc_std(1, 1)
+}
+
+spriteset(spriteset_kcr_g12_grey_backwards, "gfx/trains/g12-grey.png") {
+	template_2cc_std(1, 32)
+}
+
+spriteset(spriteset_kcr_g12_red_forwards, "gfx/trains/g12-red.png") {
+	template_2cc_std(1, 1)
+}
+
+spriteset(spriteset_kcr_g12_red_backwards, "gfx/trains/g12-red.png") {
+	template_2cc_std(1, 32)
+}
+
+spriteset(spriteset_kcr_g12_blue_forwards, "gfx/trains/g12-blue.png") {
+	template_2cc_std(1, 1)
+}
+
+spriteset(spriteset_kcr_g12_blue_backwards, "gfx/trains/g12-blue.png") {
+	template_2cc_std(1, 32)
+}
+
+
+//flipped
+spriteset(spriteset_kcr_g12_green_flipped_forwards, "gfx/trains/g12-green.png") {
+	template_2cc_flip(1, 1)
+}
+
+spriteset(spriteset_kcr_g12_green_flipped_backwards, "gfx/trains/g12-green.png") {
+	template_2cc_flip(1, 32)
+}
+
+spriteset(spriteset_kcr_g12_grey_flipped_forwards, "gfx/trains/g12-grey.png") {
+	template_2cc_flip(1, 1)
+}
+
+spriteset(spriteset_kcr_g12_grey_flipped_backwards, "gfx/trains/g12-grey.png") {
+	template_2cc_flip(1, 32)
+}
+
+spriteset(spriteset_kcr_g12_red_flipped_forwards, "gfx/trains/g12-red.png") {
+	template_2cc_flip(1, 1)
+}
+
+spriteset(spriteset_kcr_g12_red_flipped_backwards, "gfx/trains/g12-red.png") {
+	template_2cc_flip(1, 32)
+}
+
+spriteset(spriteset_kcr_g12_blue_flipped_forwards, "gfx/trains/g12-blue.png") {
+	template_2cc_flip(1, 1)
+}
+
+spriteset(spriteset_kcr_g12_blue_flipped_backwards, "gfx/trains/g12-blue.png") {
+	template_2cc_flip(1, 32)
+}
+
+//depot
+spriteset(spriteset_kcr_g12_green_logo1, "gfx/trains/g12-green.png") {
+	template_purchase(1, 64)
+}
+
+spriteset(spriteset_kcr_g12_green_logo2, "gfx/trains/g12-green.png") {
+	template_purchase(1, 96)
+}
+
+spriteset(spriteset_kcr_g12_grey_logo3, "gfx/trains/g12-grey.png") {
+	template_purchase(1, 64)
+}
+
+spriteset(spriteset_kcr_g12_red_logo3, "gfx/trains/g12-red.png") {
+	template_purchase(1, 64)
+}
+
+spriteset(spriteset_kcr_g12_red_logo4, "gfx/trains/g12-red.png") {
+	template_purchase(1, 96)
+}
+
+
+//G12 switches
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g12_green_flip_forwards, vehicle_is_reversed ) {
+	0: spriteset_kcr_g12_green_forwards;
+	1: spriteset_kcr_g12_green_backwards;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g12_green_flip_backwards, vehicle_is_reversed ) {
+	0: spriteset_kcr_g12_green_flipped_backwards;
+	1: spriteset_kcr_g12_green_flipped_forwards;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g12_green_flipped, vehicle_is_flipped ) {
+	0: switch_kcr_g12_green_flip_forwards;
+	1: switch_kcr_g12_green_flip_backwards;
+	CB_FAILED;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g12_grey_flip_forwards, vehicle_is_reversed ) {
+	0: spriteset_kcr_g12_grey_forwards;
+	1: spriteset_kcr_g12_grey_backwards;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g12_grey_flip_backwards, vehicle_is_reversed ) {
+	0: spriteset_kcr_g12_grey_flipped_backwards;
+	1: spriteset_kcr_g12_grey_flipped_forwards;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g12_grey_flipped, vehicle_is_flipped ) {
+	0: switch_kcr_g12_grey_flip_forwards;
+	1: switch_kcr_g12_grey_flip_backwards;
+	CB_FAILED;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g12_red_flip_forwards, vehicle_is_reversed ) {
+	0: spriteset_kcr_g12_red_forwards;
+	1: spriteset_kcr_g12_red_backwards;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g12_red_flip_backwards, vehicle_is_reversed ) {
+	0: spriteset_kcr_g12_red_flipped_backwards;
+	1: spriteset_kcr_g12_red_flipped_forwards;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g12_red_flipped, vehicle_is_flipped ) {
+	0: switch_kcr_g12_red_flip_forwards;
+	1: switch_kcr_g12_red_flip_backwards;
+	CB_FAILED;
+}
+
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g12_blue_flip_forwards, vehicle_is_reversed ) {
+	0: spriteset_kcr_g12_blue_forwards;
+	1: spriteset_kcr_g12_blue_backwards;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g12_blue_flip_backwards, vehicle_is_reversed ) {
+	0: spriteset_kcr_g12_blue_flipped_backwards;
+	1: spriteset_kcr_g12_blue_flipped_forwards;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g12_blue_flipped, vehicle_is_flipped ) {
+	0: switch_kcr_g12_blue_flip_forwards;
+	1: switch_kcr_g12_blue_flip_backwards;
+	CB_FAILED;
+}
+
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g12_yeardep_livery, build_year) {
+	   0..1982: switch_kcr_g12_green_flipped;
+	1982..1995: switch_kcr_g12_grey_flipped;
+	1996..1999: switch_kcr_g12_blue_flipped;
+				switch_kcr_g12_red_flipped;
+}
+
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g12_livery_refit, cargo_subtype) {
+	1: switch_kcr_g12_green_flipped;
+	2: switch_kcr_g12_grey_flipped;
+	3: switch_kcr_g12_blue_flipped;
+	4: switch_kcr_g12_red_flipped;
+	switch_kcr_g12_yeardep_livery;
+}
+
+
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g12_subtype_text, cargo_subtype) {
+	0: return string(STR_REFIT_YEARDEP);
+	1: return string(STR_REFIT_LIVERY_GREEN);
+	2: return string(STR_REFIT_LIVERY_GREY);
+	3: return string(STR_REFIT_LIVERY_BLUE);
+	4: return string(STR_REFIT_LIVERY_RED);
+	   return CB_RESULT_NO_TEXT;
+	}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g12_purchase, current_year) {
+	   0..1975: spriteset_kcr_g12_green_logo1;
+	1975..1982: spriteset_kcr_g12_green_logo2;
+	1982..1995: spriteset_kcr_g12_grey_logo3;
+	//todo add blue?
+	1996..2007: spriteset_kcr_g12_red_logo3;
+				spriteset_kcr_g12_red_logo4;
+}
+
+//G12 item
+
+item (FEAT_TRAINS, kcr_g12, 20) {
+	property {
+		sprite_id: SPRITE_ID_NEW_TRAIN;
+		track_type: RAIL;
+		name: string(STR_NAME_KCR_G12);
+		climates_available: ALL_CLIMATES;
+		introduction_date: date(1954,1,1);
+		speed: 112 km/h;
+		air_drag_coefficient: 0.1;
+		tractive_effort_coefficient:    0.24;
+		power: 1250 hp;
+		dual_headed: 0;
+		engine_class: ENGINE_CLASS_DIESEL;
+		cargo_capacity: 1; 
+		cargo_allow_refit: [PASS];
+		weight: 80;
+		reliability_decay: 20;
+		model_life: 50;
+		vehicle_life: 50;
+		cost_factor: 46;
+		running_cost_factor: 39;
+		running_cost_base: RUNNING_COST_DIESEL;
+		misc_flags: bitmask(TRAIN_FLAG_FLIP);
+		length: 6;
+	}
+		graphics { // graphics for engine
+//		additional_text:	
+		cargo_capacity: return 0;
+		cargo_subtype_text: switch_kcr_g12_subtype_text;
+		default: switch_kcr_g12_livery_refit;
+		purchase: switch_kcr_g12_purchase;
+	}
+}
+
+
+////////////////////////
+//EMD G26CU
+
+spriteset(spriteset_kcr_g26_green_forwards, "gfx/trains/g26-green.png") {
+	template_2cc_std(1, 1)
+}
+
+spriteset(spriteset_kcr_g26_green_backwards, "gfx/trains/g26-green.png") {
+	template_2cc_std(1, 32)
+}
+
+spriteset(spriteset_kcr_g26_grey_forwards, "gfx/trains/g26-grey.png") {
+	template_2cc_std(1, 1)
+}
+
+spriteset(spriteset_kcr_g26_grey_backwards, "gfx/trains/g26-grey.png") {
+	template_2cc_std(1, 32)
+}
+
+spriteset(spriteset_kcr_g26_red_forwards, "gfx/trains/g26-red.png") {
+	template_2cc_std(1, 1)
+}
+
+spriteset(spriteset_kcr_g26_red_backwards, "gfx/trains/g26-red.png") {
+	template_2cc_std(1, 32)
+}
+
+//flipped
+spriteset(spriteset_kcr_g26_green_flipped_forwards, "gfx/trains/g26-green.png") {
+	template_2cc_flip(1, 1)
+}
+
+spriteset(spriteset_kcr_g26_green_flipped_backwards, "gfx/trains/g26-green.png") {
+	template_2cc_flip(1, 32)
+}
+
+spriteset(spriteset_kcr_g26_grey_flipped_forwards, "gfx/trains/g26-grey.png") {
+	template_2cc_flip(1, 1)
+}
+
+spriteset(spriteset_kcr_g26_grey_flipped_backwards, "gfx/trains/g26-grey.png") {
+	template_2cc_flip(1, 32)
+}
+
+spriteset(spriteset_kcr_g26_red_flipped_forwards, "gfx/trains/g26-red.png") {
+	template_2cc_flip(1, 1)
+}
+
+spriteset(spriteset_kcr_g26_red_flipped_backwards, "gfx/trains/g26-red.png") {
+	template_2cc_flip(1, 32)
+}
+
+
+spriteset(spriteset_kcr_g26_green_logo2, "gfx/trains/g26-green.png") {
+	template_purchase(1, 64)
+}
+
+spriteset(spriteset_kcr_g26_grey_logo3, "gfx/trains/g26-grey.png") {
+	template_purchase(1, 64)
+}
+
+spriteset(spriteset_kcr_g26_red_logo3, "gfx/trains/g26-red.png") {
+	template_purchase(1, 64)
+}
+
+spriteset(spriteset_kcr_g26_red_logo4, "gfx/trains/g26-red.png") {
+	template_purchase(1, 96)
+}
+
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g26_green_flip_forwards, vehicle_is_reversed ) {
+	0: spriteset_kcr_g26_green_forwards;
+	1: spriteset_kcr_g26_green_backwards;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g26_green_flip_backwards, vehicle_is_reversed ) {
+	0: spriteset_kcr_g26_green_flipped_backwards;
+	1: spriteset_kcr_g26_green_flipped_forwards;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g26_green_flipped, vehicle_is_flipped ) {
+	0: switch_kcr_g26_green_flip_forwards;
+	1: switch_kcr_g26_green_flip_backwards;
+	CB_FAILED;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g26_grey_flip_forwards, vehicle_is_reversed ) {
+	0: spriteset_kcr_g26_grey_forwards;
+	1: spriteset_kcr_g26_grey_backwards;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g26_grey_flip_backwards, vehicle_is_reversed ) {
+	0: spriteset_kcr_g26_grey_flipped_backwards;
+	1: spriteset_kcr_g26_grey_flipped_forwards;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g26_grey_flipped, vehicle_is_flipped ) {
+	0: switch_kcr_g26_grey_flip_forwards;
+	1: switch_kcr_g26_grey_flip_backwards;
+	CB_FAILED;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g26_red_flip_forwards, vehicle_is_reversed ) {
+	0: spriteset_kcr_g26_red_forwards;
+	1: spriteset_kcr_g26_red_backwards;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g26_red_flip_backwards, vehicle_is_reversed ) {
+	0: spriteset_kcr_g26_red_flipped_backwards;
+	1: spriteset_kcr_g26_red_flipped_forwards;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g26_red_flipped, vehicle_is_flipped ) {
+	0: switch_kcr_g26_red_flip_forwards;
+	1: switch_kcr_g26_red_flip_backwards;
+	CB_FAILED;
+}
+
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g26_yeardep_livery, current_year) {
+	   0..1982: switch_kcr_g26_green_flipped;
+	1982..1995: switch_kcr_g26_grey_flipped;
+				switch_kcr_g26_red_flipped;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g26_livery_refit, cargo_subtype) {
+	1: switch_kcr_g26_green_flipped;
+	2: switch_kcr_g26_grey_flipped;
+	3: switch_kcr_g26_red_flipped;
+	switch_kcr_g26_yeardep_livery;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g26_subtype_text, cargo_subtype) {
+	0: return string(STR_REFIT_YEARDEP);
+	1: return string(STR_REFIT_LIVERY_GREEN);
+	2: return string(STR_REFIT_LIVERY_GREY);
+	3: return string(STR_REFIT_LIVERY_RED);
+	   return CB_RESULT_NO_TEXT;
+	}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_g26_purchase, current_year) {
+	   0..1982: spriteset_kcr_g26_green_logo2;
+	1982..1995: spriteset_kcr_g26_grey_logo3;
+	1996..2007: spriteset_kcr_g26_red_logo3;
+				spriteset_kcr_g26_red_logo4;
+}
+
+item (FEAT_TRAINS, kcr_g26, 22) {
+	property {
+		sprite_id: SPRITE_ID_NEW_TRAIN;
+		track_type: RAIL;
+		name: string(STR_NAME_KCR_G26);
+		climates_available: ALL_CLIMATES;
+		introduction_date: date(1974,1,1);
+		speed: 124 km/h;
+		air_drag_coefficient: 0.1;
+		tractive_effort_coefficient:    0.3;
+		power: 2200 hp;
+		dual_headed: 0;
+		engine_class: ENGINE_CLASS_DIESEL;
+		cargo_capacity: 1; 
+		cargo_allow_refit: [PASS];
+		weight: 100;
+		reliability_decay: 20;
+		model_life: 50;
+		vehicle_life: 50;
+		cost_factor: 58;
+		running_cost_factor: 48;
+		running_cost_base: RUNNING_COST_STEAM;
+		misc_flags: bitmask(TRAIN_FLAG_FLIP);
+		length: 8;
+	}
+		graphics { // graphics for engine
+//		additional_text:	
+		cargo_capacity: return 0;
+		cargo_subtype_text: switch_kcr_g26_subtype_text;
+		default: switch_kcr_g26_livery_refit;
+		purchase: switch_kcr_g26_purchase;
+	}
+}
+
+
+////////////////////////
+//ER20 MTR 8000
+
+spriteset(spriteset_kcr_er20, "gfx/trains/er20.png") {
+	template_2cc_std(1, 1)
+}
+
+spriteset(spriteset_kcr_er20_logo3, "gfx/trains/er20.png") {
+	template_purchase(1, 32)
+}
+
+spriteset(spriteset_kcr_er20_logo4, "gfx/trains/er20.png") {
+	template_purchase(1, 64)
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_er20_purchase, current_year) {
+	   0..2007: spriteset_kcr_er20_logo3;
+				spriteset_kcr_er20_logo4;
+}
+
+item (FEAT_TRAINS, kcr_er20, 23) {
+	property {
+		sprite_id: SPRITE_ID_NEW_TRAIN;
+		track_type: RAIL;
+		name: string(STR_NAME_KCR_ER20);
+		climates_available: ALL_CLIMATES;
+		introduction_date: date(2003,1,1);
+		speed: 140 km/h;
+		air_drag_coefficient: 0.1;
+		tractive_effort_coefficient:    0.36;
+		power: 2700 hp;
+		dual_headed: 0;
+		engine_class: ENGINE_CLASS_DIESEL;
+		cargo_capacity: 0; 
+//		cargo_allow_refit: [PASS];
+		weight: 80;
+		reliability_decay: 20;
+		model_life: VEHICLE_NEVER_EXPIRES;
+		vehicle_life: 40;
+		cost_factor: 60;
+		length: 8;
+		running_cost_factor: 53;
+		running_cost_base: RUNNING_COST_DIESEL;
+//		misc_flags: bitmask(TRAIN_FLAG_FLIP); //TODO MAKE FLIP PROPERLY
+	}
+		graphics { // graphics for engine
+		cargo_capacity: return 0;
+		default: spriteset_kcr_er20;
+		purchase: switch_kcr_er20_purchase;
+	}
+}
+
+
+
+
+///////////////////
+//KTT Loco
+
+spriteset(spriteset_kcr_ktt_forwards, "gfx/trains/lok2k-ktt.png") {
+	template_2cc_std(1, 1)
+}
+
+spriteset(spriteset_kcr_ktt_backwards, "gfx/trains/lok2k-ktt.png") {
+	template_2cc_std(1, 32)
+}
+
+spriteset(spriteset_kcr_ktt_logo3, "gfx/trains/lok2k-ktt.png") {
+	template_purchase(1, 64)
+}
+
+spriteset(spriteset_kcr_ktt_logo4, "gfx/trains/lok2k-ktt.png") {
+	template_purchase(1, 96)
+}
+
+
+
+switch(FEAT_TRAINS, SELF, switch_kcr_ktt_tail, position_in_consist_from_end) {
+	   0: spriteset_kcr_ktt_backwards;
+	      spriteset_kcr_ktt_forwards;
+}
+
+//TODO MAKE FLIP SWITCHES FOR KTT
+
+switch(FEAT_TRAINS, SELF, switch_kcr_ktt_purchase, current_year) {
+	   0..2007: spriteset_kcr_ktt_logo3;
+				spriteset_kcr_ktt_logo4;
+}
+
+
+
+item (FEAT_TRAINS, kcr_ktt, 25) {
+	property {
+		sprite_id: SPRITE_ID_NEW_TRAIN;
+		track_type: ELRL;
+		name: string(STR_NAME_KCR_KTT);
+		climates_available: ALL_CLIMATES;
+		introduction_date: date(1996,1,1);
+		speed: 200 km/h;
+		air_drag_coefficient: 0.0;
+		tractive_effort_coefficient:    0.36;
+		power: 8180 hp;
+		dual_headed: 0;
+		engine_class: ENGINE_CLASS_ELECTRIC;
+		cargo_capacity: 0; 
+//		cargo_allow_refit: [PASS];
+		weight: 84;
+		reliability_decay: 20;
+		model_life: VEHICLE_NEVER_EXPIRES;
+		vehicle_life: 20;
+		cost_factor: 86;
+		running_cost_factor: 60;
+		running_cost_base: RUNNING_COST_ELECTRIC;
+//		misc_flags: bitmask(TRAIN_FLAG_FLIP); //TODO make flip properly
+		length: 8;
+	}
+		graphics { // graphics for engine
+//		additional_text:	
+		default: switch_kcr_ktt_tail;
+		purchase: switch_kcr_ktt_purchase;
+	}
+}
+
+////////////////////HIGH SPEED MUs
+//X2000
+
+spriteset(spriteset_cr_x2000_front_forwards, "gfx/trains/xinshisu.png") {
+	template_2cc_std(1, 1)
+}
+
+spriteset(spriteset_cr_x2000_rear_backwards, "gfx/trains/xinshisu.png") {
+	template_2cc_std(1, 32)
+}
+
+spriteset(spriteset_cr_x2000_front_backwards, "gfx/trains/xinshisu.png") {
+	template_2cc_std(1, 64)
+}
+
+spriteset(spriteset_cr_x2000_rear_forward, "gfx/trains/xinshisu.png") {
+	template_2cc_std(1, 96)
+}
+
+spriteset(spriteset_cr_x2000_coach, "gfx/trains/xinshisu.png") {
+	template_2cc_std(1, 128)
+}
+
+spriteset(spriteset_cr_x2000_purchase, "gfx/trains/xinshisu.png") {
+	template_purchase_dualheaded(1, 160)
+}
+
+switch(FEAT_TRAINS, PARENT, switch_cr_x2000_front_reversed, vehicle_is_reversed ) {
+	0: spriteset_cr_x2000_front_forwards;
+	1: spriteset_cr_x2000_rear_forward;
+}
+
+switch(FEAT_TRAINS, PARENT, switch_cr_x2000_rear_reversed, vehicle_is_reversed ) {
+	0: spriteset_cr_x2000_rear_backwards;
+	1: spriteset_cr_x2000_front_backwards;
+}
+
+
+
+switch(FEAT_TRAINS, SELF, switch_cr_x2000_dualheaded, var[0xC8]) {
+	0xFE: switch_cr_x2000_rear_reversed;
+    0xFF: switch_cr_x2000_rear_reversed; 
+    switch_cr_x2000_front_reversed;
+}
+
+
+item (FEAT_TRAINS, cr_x2000, 50) {
+	property {
+		sprite_id: SPRITE_ID_NEW_TRAIN;
+		track_type: ELRL;
+		name: string(STR_NAME_CR_X2000);
+		climates_available: ALL_CLIMATES;
+		introduction_date: date(1998,1,1);
+		speed: 210 km/h;
+		air_drag_coefficient: 0.0;
+		tractive_effort_coefficient:    0.34;
+		power: 4400 hp;
+		dual_headed: 1;
+		engine_class: ENGINE_CLASS_ELECTRIC;
+		cargo_capacity: 30; 
+//		cargo_allow_refit: [PASS];
+		weight: 50;
+		reliability_decay: 20;
+		model_life: 50;
+		vehicle_life: 20;
+		cost_factor: 77;
+		running_cost_factor: 50;
+		running_cost_base: RUNNING_COST_STEAM;
+		length: 8;
+	}
+		graphics { // graphics for engine
+//		additional_text:	
+		default: switch_cr_x2000_dualheaded;
+		purchase: spriteset_cr_x2000_purchase;
+	}
+		livery_override(multiple_unit_wagon) { // graphics for alternative look of passenger wagon when used with this engine
+		loading_speed: 80;
+		power: 0;
+		weight: 40;
+		running_cost_factor: 12;
+		cargo_capacity: 70; //add switch here for different cargos
+		length: 8;
+		default: spriteset_cr_x2000_coach;
+		}
+}
+
+
+//////////////////////
+//CRH3 Velaro
+
+spriteset(spriteset_cr_crh3_front, "gfx/trains/crh3c.png") {
+	template_2cc_std(1, 1)
+}
+
+spriteset(spriteset_cr_crh3_rear, "gfx/trains/crh3c.png") {
+	template_2cc_std(1, 32)
+}
+
+spriteset(spriteset_cr_crh3_coach, "gfx/trains/crh3c.png") {
+	template_2cc_std(1, 64)
+}
+
+spriteset(spriteset_cr_crh3_panto_front, "gfx/trains/crh3c.png") {
+	template_2cc_flip(1, 96)
+}
+
+spriteset(spriteset_cr_crh3_panto_rear, "gfx/trains/crh3c.png") {
+	template_2cc_flip(1, 128)
+}
+
+spriteset(spriteset_cr_crh3_purchase, "gfx/trains/crh3c.png") {
+	template_purchase_dualheaded(1, 160)
+}
+
+switch(FEAT_TRAINS, SELF, switch_cr_crh3_coaches_reversed, position_in_vehid_chain_from_end) {
+		0: spriteset_cr_crh3_panto_front;
+		spriteset_cr_crh3_coach;
+}
+
+switch(FEAT_TRAINS, SELF, switch_cr_crh3_coaches_forward, position_in_vehid_chain) {
+		0: spriteset_cr_crh3_panto_rear;
+		switch_cr_crh3_coaches_reversed;
+}
+
+
+switch(FEAT_TRAINS, SELF, switch_cr_crh3_dualheaded, var[0xC8]) {
+	0xFE: spriteset_cr_crh3_rear;
+    0xFF: spriteset_cr_crh3_rear; 
+    spriteset_cr_crh3_front;
+}
+
+item (FEAT_TRAINS, cr_crh3, 51) {
+	property {
+		sprite_id: SPRITE_ID_NEW_TRAIN;
+		track_type: ELRL;
+		name: string(STR_NAME_CR_CRH3);
+		climates_available: ALL_CLIMATES;
+		introduction_date: date(2008,1,1);
+		speed: 350 km/h;
+		air_drag_coefficient: 0.0;
+		tractive_effort_coefficient:    0.36;
+		power: 2950 hp;
+		dual_headed: 1;
+		engine_class: ENGINE_CLASS_ELECTRIC;
+		cargo_capacity: 68; 
+		cargo_allow_refit: [PASS];
+		weight: 55;
+		reliability_decay: 20;
+		model_life: 50;
+		vehicle_life: 40;
+		cost_factor: 90;
+		running_cost_factor: 80;
+		running_cost_base: RUNNING_COST_ELECTRIC;
+		length: 7;
+	}
+		graphics { // graphics for engine
+//		additional_text:	
+		default: switch_cr_crh3_dualheaded;
+		purchase: spriteset_cr_crh3_purchase;
+	}
+		livery_override(multiple_unit_wagon) { // graphics for alternative look of passenger wagon when used with this engine
+		loading_speed: 80;
+		power: 1475;
+		weight: 40;
+		running_cost_factor: 20;
+		cargo_capacity: 72; //add switch here for different cargos
+		length: 8;
+		default: switch_cr_crh3_coaches_forward;
+		}
+}
+
+//////////////////////////////////
+//CRH380A/AL
+
+//MTR spritesets
+spriteset(spriteset_mtr_crh380_front, "gfx/trains/crh380-mtr.png") {
+	template_2cc_std(1, 1)
+}
+spriteset(spriteset_mtr_crh380_rear, "gfx/trains/crh380-mtr.png") {
+	template_2cc_std(1, 32)
+}
+spriteset(spriteset_mtr_crh380_coach, "gfx/trains/crh380-mtr.png") {
+	template_2cc_std(1, 64)
+}
+
+spriteset(spriteset_mtr_crh380_panto_up_backwards, "gfx/trains/crh380-mtr.png") {
+	template_2cc_std(180, 1)
+}
+spriteset(spriteset_mtr_crh380_panto_down_forwards, "gfx/trains/crh380-mtr.png") {
+	template_2cc_flip(180, 32)
+}
+spriteset(spriteset_mtr_crh380_panto_up_forwards, "gfx/trains/crh380-mtr.png") {
+	template_2cc_flip(180, 64)
+}
+spriteset(spriteset_mtr_crh380_panto_down_backwards, "gfx/trains/crh380-mtr.png") {
+	template_2cc_std(180, 96)
+}
+
+spriteset(spriteset_mtr_crh380_purchase, "gfx/trains/crh380-mtr.png") {
+	template_purchase_dualheaded(1, 128)
+}
+
+//CR spritesets
+spriteset(spriteset_cr_crh380_front, "gfx/trains/crh380-cr.png") {
+	template_2cc_std(1, 1)
+}
+spriteset(spriteset_cr_crh380_rear, "gfx/trains/crh380-cr.png") {
+	template_2cc_std(1, 32)
+}
+spriteset(spriteset_cr_crh380_coach, "gfx/trains/crh380-cr.png") {
+	template_2cc_std(1, 64)
+}
+
+spriteset(spriteset_cr_crh380al_panto, "gfx/trains/crh380-cr.png") {
+	template_2cc_std(1, 96)
+}
+
+spriteset(spriteset_cr_crh380_panto_up_forwards, "gfx/trains/crh380-cr.png") {
+	template_2cc_flip(180, 1)
+}
+spriteset(spriteset_cr_crh380_panto_down_forwards, "gfx/trains/crh380-cr.png") {
+	template_2cc_flip(180, 32)
+}
+spriteset(spriteset_cr_crh380_panto_up_backwards, "gfx/trains/crh380-cr.png") {
+	template_2cc_flip(180, 64)
+}
+spriteset(spriteset_cr_crh380_panto_down_backwards, "gfx/trains/crh380-cr.png") {
+	template_2cc_flip(180, 96)
+}
+
+spriteset(spriteset_cr_crh380_purchase, "gfx/trains/crh380-cr.png") {
+	template_purchase_dualheaded(1, 128)
+}
+
+
+//MTR livery coaches
+switch(FEAT_TRAINS, PARENT, switch_mtr_crh380_panto_leading_backwards, vehicle_is_reversed ) {
+	0: spriteset_mtr_crh380_coach;
+	1: spriteset_mtr_crh380_panto_up_backwards;
+}
+
+switch(FEAT_TRAINS, PARENT, switch_mtr_crh380_panto_trailing_backwards, vehicle_is_reversed ) {
+	0: spriteset_mtr_crh380_panto_up_forwards;
+	1: spriteset_mtr_crh380_coach;
+}
+
+switch(FEAT_TRAINS, PARENT, switch_mtr_crh380_panto_leading_forwards, vehicle_is_reversed ) {
+	0: spriteset_mtr_crh380_panto_down_forwards;
+	1: spriteset_mtr_crh380_coach;
+}
+
+switch(FEAT_TRAINS, PARENT, switch_mtr_crh380_panto_trailing_forwards, vehicle_is_reversed ) {
+	0: spriteset_mtr_crh380_coach;
+	1: spriteset_mtr_crh380_panto_down_backwards;
+}
+
+switch(FEAT_TRAINS, SELF, switch_mtr_crh380_coaches_reversed, position_in_vehid_chain_from_end) {
+		1: switch_mtr_crh380_panto_trailing_backwards;
+		2: switch_mtr_crh380_panto_leading_backwards;
+		spriteset_mtr_crh380_coach;
+}
+
+switch(FEAT_TRAINS, SELF, switch_mtr_crh380_coaches_forward, position_in_vehid_chain) {
+		1: switch_mtr_crh380_panto_trailing_forwards;
+		2: switch_mtr_crh380_panto_leading_forwards;
+		switch_mtr_crh380_coaches_reversed;
+}
+
+//CR AL coaches
+switch(FEAT_TRAINS, PARENT, switch_cr_crh380al_panto_backwards, vehicle_is_reversed ) {
+	0: spriteset_cr_crh380al_panto;
+	1: spriteset_cr_crh380_coach;
+}
+
+switch(FEAT_TRAINS, PARENT, switch_cr_crh380al_panto_forwards, vehicle_is_reversed ) {
+	0: spriteset_cr_crh380_coach;
+	1: spriteset_cr_crh380al_panto;
+}
+
+switch(FEAT_TRAINS, SELF, switch_cr_crh380al_coaches_reversed, position_in_vehid_chain_from_end) {
+		2: switch_cr_crh380al_panto_backwards;
+		3: switch_cr_crh380al_panto_forwards;
+		spriteset_cr_crh380_coach;
+}
+
+switch(FEAT_TRAINS, SELF, switch_cr_crh380al_coaches_forward, position_in_vehid_chain) {
+		2: switch_cr_crh380al_panto_forwards;
+		3: switch_cr_crh380al_panto_backwards;
+		switch_cr_crh380al_coaches_reversed;
+}
+
+//CR A coaches
+switch(FEAT_TRAINS, PARENT, switch_cr_crh380a_panto_leading_backwards, vehicle_is_reversed ) {
+	0: spriteset_cr_crh380_coach;
+	1: spriteset_cr_crh380_panto_up_backwards;
+}
+
+switch(FEAT_TRAINS, PARENT, switch_cr_crh380a_panto_trailing_backwards, vehicle_is_reversed ) {
+	0: spriteset_cr_crh380_panto_up_forwards;
+	1: spriteset_cr_crh380_coach;
+}
+
+switch(FEAT_TRAINS, PARENT, switch_cr_crh380a_panto_leading_forwards, vehicle_is_reversed ) {
+	0: spriteset_cr_crh380_panto_down_forwards;
+	1: spriteset_cr_crh380_coach;
+}
+
+switch(FEAT_TRAINS, PARENT, switch_cr_crh380a_panto_trailing_forwards, vehicle_is_reversed ) {
+	0: spriteset_cr_crh380_coach;
+	1: spriteset_cr_crh380_panto_down_backwards;
+}
+
+switch(FEAT_TRAINS, SELF, switch_cr_crh380a_coaches_reversed, position_in_vehid_chain_from_end) {
+		1: switch_cr_crh380a_panto_trailing_backwards;
+		2: switch_cr_crh380a_panto_leading_backwards;
+		spriteset_cr_crh380_coach;
+}
+
+switch(FEAT_TRAINS, SELF, switch_cr_crh380a_coaches_forward, position_in_vehid_chain) {
+		1: switch_cr_crh380a_panto_trailing_forwards;
+		2: switch_cr_crh380a_panto_leading_forwards;
+		switch_cr_crh380a_coaches_reversed;
+}
+
+
+switch(FEAT_TRAINS, SELF, switch_cr_crh380_length, num_vehs_in_vehid_chain) {
+	1..12:	switch_cr_crh380a_coaches_forward;
+	13..64:	switch_cr_crh380al_coaches_forward;
+	spriteset_cr_crh380al_panto;
+}
+
+//head switches
+switch(FEAT_TRAINS, SELF, switch_cr_crh380_coaches_yeardep, build_year) {
+	0..2018: switch_cr_crh380a_coaches_forward;
+	switch_mtr_crh380_coaches_forward;
+}
+
+switch(FEAT_TRAINS, PARENT, switch_cr_crh380_coaches_livery, cargo_subtype) {
+	0: switch_cr_crh380_coaches_yeardep;
+	1: switch_mtr_crh380_coaches_forward;
+	2: switch_cr_crh380_length;
+	3: switch_cr_crh380a_coaches_forward;
+	}
+
+switch(FEAT_TRAINS, SELF, switch_cr_crh380_front_yeardep, build_year) {
+	0..2018: spriteset_cr_crh380_front;
+	spriteset_mtr_crh380_front;
+}
+
+switch(FEAT_TRAINS, SELF, switch_cr_crh380_rear_yeardep, build_year) {
+	0..2018: spriteset_cr_crh380_rear;
+	spriteset_mtr_crh380_rear;
+}
+	
+switch(FEAT_TRAINS, SELF, switch_cr_crh380_front_livery_refit, cargo_subtype) {
+	1: spriteset_mtr_crh380_front;
+	2: spriteset_cr_crh380_front;
+	3: spriteset_cr_crh380_front;
+	switch_cr_crh380_front_yeardep;
+}
+
+switch(FEAT_TRAINS, SELF, switch_cr_crh380_rear_livery_refit, cargo_subtype) {
+	1: spriteset_mtr_crh380_rear;
+	2: spriteset_cr_crh380_rear;
+	3: spriteset_cr_crh380_rear;
+	switch_cr_crh380_rear_yeardep;
+}
+
+
+
+switch(FEAT_TRAINS, SELF, switch_cr_crh380_subtype_text, cargo_subtype) {
+	0: return string(STR_REFIT_YEARDEP);
+	1: return string(STR_REFIT_LIVERY_CRH_MTR);
+	2: return string(STR_REFIT_LIVERY_CRH380AL);
+	3: return string(STR_REFIT_LIVERY_CRH380A);
+	   return CB_RESULT_NO_TEXT;
+	}
+	
+switch(FEAT_TRAINS, SELF, switch_cr_crh380_dualheaded, var[0xC8]) {
+	0xFE: switch_cr_crh380_rear_livery_refit;
+    0xFF: switch_cr_crh380_rear_livery_refit; 
+    switch_cr_crh380_front_livery_refit;
+}
+
+switch(FEAT_TRAINS, SELF, switch_cr_crh380_purchase, current_year) {
+	   0..2018: spriteset_cr_crh380_purchase;
+				spriteset_mtr_crh380_purchase;
+}
+
+
+item (FEAT_TRAINS, cr_crh380, 52) {
+	property {
+		sprite_id: SPRITE_ID_NEW_TRAIN;
+		track_type: ELRL;
+		name: string(STR_NAME_CR_CRH380);
+		climates_available: ALL_CLIMATES;
+		introduction_date: date(2011,1,1);
+		speed: 380 km/h;
+		air_drag_coefficient: 0.0;
+		tractive_effort_coefficient:    0.36;
+		power: 3200 hp;
+		dual_headed: 1;
+		engine_class: ENGINE_CLASS_ELECTRIC;
+		cargo_capacity: 64; 
+		cargo_allow_refit: [PASS];
+		weight: 55;
+		reliability_decay: 20;
+		model_life: VEHICLE_NEVER_EXPIRES;
+		vehicle_life: 40;
+		cost_factor: 100;
+		running_cost_factor: 90;
+		running_cost_base: RUNNING_COST_ELECTRIC;
+		length: 8;
+	}
+		graphics { // graphics for engine
+//		additional_text:	
+		cargo_subtype_text: switch_cr_crh380_subtype_text;
+		default: switch_cr_crh380_dualheaded;
+		purchase: switch_cr_crh380_purchase;
+	}
+		livery_override(multiple_unit_wagon) { // graphics for alternative look of passenger wagon when used with this engine
+		loading_speed: 80;
+		power: 1600;
+		weight: 40;
+		running_cost_factor: 23;
+		cargo_capacity: 70; //add switch here for different cargos
+		length: 8;
+		default: switch_cr_crh380_coaches_livery;
+		}
+}
+
+
+
+////////////////////////////////
+//METRO MUs
+
+//SP1900
+
+spriteset(spriteset_kcr_sp1900_front_forwards, "gfx/trains/sp1900.png") {
+	template_2cc_std(1, 1)
+}
+spriteset(spriteset_kcr_sp1900_front_backwards, "gfx/trains/sp1900.png") {
+	template_2cc_std(1, 32)
+}
+spriteset(spriteset_kcr_sp1900_panto_forwards, "gfx/trains/sp1900.png") {
+	template_2cc_std(1, 96)
+}
+spriteset(spriteset_kcr_sp1900_panto_backwards, "gfx/trains/sp1900.png") {
+	template_2cc_flip(1, 96)
+}
+spriteset(spriteset_kcr_sp1900_coach, "gfx/trains/sp1900.png") {
+	template_2cc_std(1, 64)
+}
+spriteset(spriteset_kcr_sp1900_firstclass_forwards, "gfx/trains/sp1900.png") {
+	template_2cc_flip(1, 128)
+}
+spriteset(spriteset_kcr_sp1900_firstclass_backwards, "gfx/trains/sp1900.png") {
+	template_2cc_std(1, 128)
+}
+
+spriteset(spriteset_kcr_sp1900_logo3, "gfx/trains/sp1900.png") {
+	template_purchase_dualheaded(1, 160)
+}
+
+spriteset(spriteset_kcr_sp1900_logo4, "gfx/trains/sp1900.png") {
+	template_purchase_dualheaded(1, 192)
+}
+
+
+
+
+switch(FEAT_TRAINS, SELF, switch_kcr_sp1900_coaches_panto_end, position_in_consist_from_end) {
+		1: spriteset_kcr_sp1900_panto_forwards;	   
+		spriteset_kcr_sp1900_coach;
+}
+
+
+switch(FEAT_TRAINS, PARENT, switch_kcr_sp1900_panto_forwards, vehicle_is_reversed ) {
+	0: spriteset_kcr_sp1900_panto_forwards;
+	1: spriteset_kcr_sp1900_coach;
+}
+
+switch(FEAT_TRAINS, PARENT, switch_kcr_sp1900_firstclass_forwards, vehicle_is_reversed ) {
+	0: spriteset_kcr_sp1900_firstclass_forwards;
+	1: spriteset_kcr_sp1900_coach;
+}
+
+switch(FEAT_TRAINS, PARENT, switch_kcr_sp1900_panto_backwards, vehicle_is_reversed ) {
+	0: spriteset_kcr_sp1900_coach;
+	1: spriteset_kcr_sp1900_panto_backwards;
+}
+
+switch(FEAT_TRAINS, PARENT, switch_kcr_sp1900_firstclass_backwards, vehicle_is_reversed ) {
+	0: spriteset_kcr_sp1900_coach;
+	1: spriteset_kcr_sp1900_firstclass_backwards;
+}
+
+
+switch(FEAT_TRAINS, SELF, switch_kcr_sp1900_coaches_reversed, position_in_consist_from_end) {
+		7: switch_kcr_sp1900_panto_backwards; 
+		8: switch_kcr_sp1900_firstclass_backwards;  
+		switch_kcr_sp1900_coaches_panto_end;
+}
+
+
+
+switch(FEAT_TRAINS, SELF, switch_kcr_sp1900_coaches_forward, position_in_consist) {
+		1: spriteset_kcr_sp1900_panto_backwards;
+		7: switch_kcr_sp1900_panto_forwards; 
+		8: switch_kcr_sp1900_firstclass_forwards;
+		switch_kcr_sp1900_coaches_reversed;
+}
+
+
+
+
+
+switch(FEAT_TRAINS, SELF, switch_kcr_sp1900_dualheaded, var[0xC8]) {
+	0xFE: spriteset_kcr_sp1900_front_backwards;
+    0xFF: spriteset_kcr_sp1900_front_backwards; 
+    spriteset_kcr_sp1900_front_forwards;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_sp1900_purchase, current_year) {
+	   0..2007: spriteset_kcr_sp1900_logo3;
+				spriteset_kcr_sp1900_logo4;
+}
+
+
+
+item (FEAT_TRAINS, kcr_sp1900, 32) {
+	property {
+		sprite_id: SPRITE_ID_NEW_TRAIN;
+		track_type: ELRL;
+		name: string(STR_NAME_KCR_SP1900);
+		climates_available: ALL_CLIMATES;
+		introduction_date: date(2001,1,1);
+		speed: 130 km/h;
+		air_drag_coefficient: 0.0;
+		tractive_effort_coefficient:    0.36;
+		power: 2560 hp;
+		dual_headed: 1;
+		engine_class: ENGINE_CLASS_ELECTRIC;
+		cargo_capacity: 250; 
+		cargo_allow_refit: [PASS];
+		loading_speed: 150; //faster for metros
+		weight: 37;
+		reliability_decay: 20;
+		model_life: VEHICLE_NEVER_EXPIRES;
+		vehicle_life: 40;
+		cost_factor: 40;
+		running_cost_factor: 44;
+		running_cost_base: RUNNING_COST_ELECTRIC;
+		length: 8;
+	}
+		graphics { 
+//		additional_text:	
+		default: switch_kcr_sp1900_dualheaded;
+		purchase: switch_kcr_sp1900_purchase;
+	}
+		livery_override(multiple_unit_wagon) { // graphics for alternative look of passenger wagon when used with this engine
+		loading_speed: 150;
+		power: 640;
+		weight: 37;
+		running_cost_factor: 11;
+		cargo_capacity: 250; //add switch here for different cargos
+		length: 8;
+		default: switch_kcr_sp1900_coaches_forward;
+		}
+}
+
+///////////////////
+//MU WAGONS
+
+spriteset(spriteset_muwagon_default, "gfx/trains/mu-wagon.png") {
+	template_2cc_std(1, 1)
+}
+
+spriteset(spriteset_muwagon_unpowered, "gfx/trains/mu-wagon.png") {
+	template_purchase(1, 32)
+}
+
+
+
+
+item (FEAT_TRAINS, multiple_unit_wagon, 100) {
+	property {
+		sprite_id: SPRITE_ID_NEW_TRAIN;
+		track_type: RAIL;
+		name: string(STR_NAME_MU_WAGON);
+		climates_available: ALL_CLIMATES;
+		introduction_date: date(1970,1,1);
+//		speed: 120 km/h;
+		power: 0;
+		dual_headed: 0;
+		cargo_capacity: 1; 
+		cargo_allow_refit: [PASS];
+		weight: 40;
+		cost_factor: 10;
+		length: 8;
+		running_cost_factor: 2;
+		running_cost_base: RUNNING_COST_STEAM;
+	}
+		graphics { 
+		default: spriteset_muwagon_default;
+		purchase: spriteset_muwagon_unpowered;
+	}
+}
+
+
+
+
+/////////////////
+//1954 stock
+
+spriteset(spriteset_kcr_54stock, "gfx/trains/54stock.png") {
+	template_2cc_std(1, 1)
+}
+
+spriteset(spriteset_kcr_54stock_guard, "gfx/trains/54stock.png") {
+	template_2cc_std(1, 32)
+}
+
+
+
+spriteset(spriteset_kcr_54stock_logo1, "gfx/trains/54stock.png") {
+	template_purchase(1, 96)
+}
+
+spriteset(spriteset_kcr_54stock_logo2, "gfx/trains/54stock.png") {
+	template_purchase(1, 128)
+}
+
+
+switch(FEAT_TRAINS, SELF, switch_kcr_54stock_guard, position_in_consist_from_end) {
+	   0: spriteset_kcr_54stock_guard;	   
+		spriteset_kcr_54stock;
+}
+
+switch(FEAT_TRAINS, SELF, switch_kcr_54stock_purchase, current_year) {
+	   0..1974: spriteset_kcr_54stock_logo1;
+				spriteset_kcr_54stock_logo2;
+}
+
+
+item (FEAT_TRAINS, kcr_54stock, 92) {
+	property {
+		sprite_id: SPRITE_ID_NEW_TRAIN;
+		track_type: RAIL;
+		name: string(STR_NAME_KCR_54STOCK);
+		climates_available: ALL_CLIMATES;
+		introduction_date: date(1954,1,1);
+		speed: 120 km/h;
+		power: 0;
+		dual_headed: 0;
+		cargo_capacity: 75; 
+		cargo_allow_refit: [PASS];
+		weight: 40;
+		cost_factor: 10;
+		length: 8;
+		running_cost_factor: 2;
+		running_cost_base: RUNNING_COST_STEAM;
+		loading_speed: 60;
+	}
+		graphics { // graphics for engine
+		default: switch_kcr_54stock_guard;
+		purchase: switch_kcr_54stock_purchase;
+	}
+}
+
+
+/////////////////////
+// 1974 Stock
+
+spriteset(spriteset_kcr_74stock_a, "gfx/trains/74stock.png") {
+	template_2cc_std(1, 1)
+}
+
+spriteset(spriteset_kcr_74stock_b, "gfx/trains/74stock.png") {
+	template_2cc_std(1, 32)
+}
+
+
+
+spriteset(spriteset_kcr_74stock_logo2, "gfx/trains/74stock.png") {
+	template_purchase(1, 64)
+}
+
+//TODO Chinese Livery
+
+random_switch(FEAT_TRAINS, SELF, switch_kcr_74stock_random) {
+		1: spriteset_kcr_74stock_a;
+		3: spriteset_kcr_74stock_b;
+}
+
+
+item (FEAT_TRAINS, kcr_74stock, 93) {
+	property {
+		sprite_id: SPRITE_ID_NEW_TRAIN;
+		track_type: RAIL;
+		name: string(STR_NAME_KCR_74STOCK);
+		climates_available: ALL_CLIMATES;
+		introduction_date: date(1974,1,1);
+		speed: 120 km/h;
+		power: 0;
+		dual_headed: 0;
+		cargo_capacity: 90; 
+		cargo_allow_refit: [PASS];
+		weight: 40;
+		cost_factor: 10;
+		length: 8;
+		running_cost_factor: 2;
+		running_cost_base: RUNNING_COST_STEAM;
+		loading_speed: 60;
+	}
+		graphics { // graphics for engine
+		default: switch_kcr_74stock_random;
+		purchase: spriteset_kcr_74stock_logo2;
+	}
+}
+
+
+
+/////////////////
+//KTT Coach
+
+
+spriteset(spriteset_kcr_ktt_coach_forwards, "gfx/trains/ktt-coach.png") {
+	template_2cc_std(1, 1)
+}
+
+spriteset(spriteset_kcr_ktt_coach_backwards, "gfx/trains/ktt-coach.png") {
+	template_2cc_std(1, 32)
+}
+
+spriteset(spriteset_kcr_ktt_coach_logo3, "gfx/trains/ktt-coach.png") {
+	template_purchase(1, 64)
+}
+
+spriteset(spriteset_kcr_ktt_coach_logo4, "gfx/trains/ktt-coach.png") {
+	template_purchase(1, 96)
+}
+
+//AHH THIS ONE IS JANKY
+
+//Find 2cc A B unit code and adapt
+
+switch(FEAT_TRAINS, SELF, switch_kcr_ktt_coach_direction, position_in_vehid_chain) {
+	   0: spriteset_kcr_ktt_coach_backwards;
+	   2: spriteset_kcr_ktt_coach_backwards;
+	   4: spriteset_kcr_ktt_coach_backwards;
+	   6: spriteset_kcr_ktt_coach_backwards;
+	   8: spriteset_kcr_ktt_coach_backwards;
+	   10: spriteset_kcr_ktt_coach_backwards;
+	   12: spriteset_kcr_ktt_coach_backwards;
+	   14: spriteset_kcr_ktt_coach_backwards;
+	   16: spriteset_kcr_ktt_coach_backwards;
+	   18: spriteset_kcr_ktt_coach_backwards;
+	   20: spriteset_kcr_ktt_coach_backwards;
+	   22: spriteset_kcr_ktt_coach_backwards;	   
+		spriteset_kcr_ktt_coach_forwards;
+}
+
+
+switch(FEAT_TRAINS, SELF, switch_kcr_ktt_coach_purchase, current_year) {
+	   0..2007: spriteset_kcr_ktt_coach_logo3;
+				spriteset_kcr_ktt_coach_logo4;
+}
+
+
+item (FEAT_TRAINS, kcr_ktt_coach, 98) {
+	property {
+		sprite_id: SPRITE_ID_NEW_TRAIN;
+		track_type: RAIL;
+		name: string(STR_NAME_KCR_KTT_COACH);
+		climates_available: ALL_CLIMATES;
+		introduction_date: date(1995,1,1);
+		speed: 160 km/h;
+		power: 0;
+		dual_headed: 0;
+		cargo_capacity: 140; 
+		cargo_allow_refit: [PASS];
+		loading_speed: 60; 
+		weight: 40;
+		cost_factor: 10;
+		length: 8;
+		running_cost_factor: 2;
+		running_cost_base: RUNNING_COST_STEAM;
+		misc_flags: bitmask(TRAIN_FLAG_FLIP);
+	}
+		graphics { // graphics for engine
+		default: switch_kcr_ktt_coach_direction;
+		purchase: switch_kcr_ktt_coach_purchase;
+	}
+}
+
+
+
+
+
+///////////////////
+//TRAMS
+
+//HKTS
+
+spriteset(spriteset_tram_6gen, "gfx/trams/6gen-tram.png") {
+	template_2cc_bus(1, 1)
+}
+
+spriteset(spriteset_tram_6gen_purchase, "gfx/trams/6gen-tram.png") {
+	template_purchase_bus(1, 160)
+}
+
+
+
+item (FEAT_ROADVEHS, tram_6gen, 107) {
+	property {
+		sprite_id: SPRITE_ID_NEW_TRAIN;
+		name: string(STR_NAME_TRAM_6GEN);
+		climates_available: ALL_CLIMATES;
+		introduction_date: date(1986,1,1);
+		speed: 60 km/h;
+		air_drag_coefficient: 0.0;
+		tractive_effort_coefficient:    0.5;
+		power: 220 hp;
+		cargo_capacity: 110; 
+		cargo_allow_refit: [PASS];
+		weight: 30;
+		reliability_decay: 20;
+		model_life: VEHICLE_NEVER_EXPIRES;
+		vehicle_life: 50;
+		cost_factor: 12;
+		running_cost_factor: 7;
+		running_cost_base: RUNNING_COST_ROADVEH;
+		length: 7;
+		loading_speed: 60;
+		misc_flags:    bitmask(ROADVEH_FLAG_TRAM);
+	}
+		graphics { // graphics for engine
+//		additional_text:	
+		default: spriteset_tram_6gen;
+		purchase: spriteset_tram_6gen_purchase;
+	}
+}
